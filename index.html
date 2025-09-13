@@ -1,232 +1,374 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Schedule - Book Your Appointment</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tutor Availability</title>
+  <base target="_blank" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
-            padding: 40px 20px;
-        }
+  <style>
+    :root {
+      --blue-1: #0ea5ff;
+      --blue-2: #3bb2ff;
+      --blue-3: #1d7edc;
+      --blue-900: #003e7e;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --card: #ffffff;
+      --bg: #f6f8fb;
+      --shadow: 0 14px 40px rgba(2, 70, 150, 0.15);
+      --radius: 22px;
+      --pill-radius: 16px;
+    }
 
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: flex;
-            gap: 40px;
-            align-items: flex-start;
-        }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 28px 16px;
+      overflow-x: hidden;
+    }
 
-        .schedule-card {
-            background: white;
-            border-radius: 12px;
-            padding: 40px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            flex: 1;
-            min-height: 500px;
-            display: flex;
-            flex-direction: column;
-        }
+    .wrap {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 28px;
+    }
+    @media (max-width: 980px) {
+      .wrap { grid-template-columns: 1fr; }
+    }
 
-        .schedule-content {
-            flex: 1;
-        }
+    /* Card */
+    .card {
+      background: var(--card);
+      border-radius: calc(var(--radius) + 6px);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
 
-        .name-title {
-            font-size: 48px;
-            font-weight: 700;
-            margin-bottom: 40px;
-            color: #333;
-        }
+    /* Gradient header like previous blocks */
+    .card__header {
+      background: radial-gradient(120% 120% at 20% 0%, #6fc8ff 0%, #1ea0ff 35%, var(--blue-900) 100%);
+      color: #fff;
+      padding: 32px 24px 26px;
+      text-align: center;
+      position: relative;
+    }
+    .card__title {
+      font-size: 40px;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+      margin-bottom: 6px;
+    }
+    .card__subtitle {
+      font-weight: 700;
+      font-size: 22px;
+      opacity: 0.95;
+      margin-bottom: 6px;
+    }
+    .card__subnote {
+      font-size: 14px;
+      opacity: 0.9;
+    }
 
-        .name-blue {
-            color: #2196F3;
-        }
+    .section {
+      background: #fff;
+      padding: 26px 20px 24px;
+    }
 
-        .schedule-item {
-            margin-bottom: 25px;
-        }
+    .section__title {
+      text-align: center;
+      font-weight: 800;
+      font-size: 18px;
+      color: #2a2f37;
+      margin: 2px 0 18px;
+    }
 
-        .day {
-            color: #2196F3;
-            font-size: 28px;
-            font-weight: 600;
-            display: inline;
-        }
+    /* Pill list items (day rows) */
+    .list {
+      display: grid;
+      gap: 14px;
+    }
+    .item {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 14px;
+      background: #ffffff;
+      border-radius: var(--pill-radius);
+      padding: 14px 16px;
+      box-shadow: 0 8px 22px rgba(2, 70, 150, 0.08), 0 1px 0 rgba(2, 70, 150, 0.05) inset;
+      border: 1px solid rgba(2, 70, 150, 0.07);
+      cursor: pointer;
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .item:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(2,70,150,.12); }
 
-        .time {
-            color: #333;
-            font-size: 28px;
-            font-weight: 400;
-            display: inline;
-        }
+    .icon {
+      width: 38px; height: 38px;
+      display: grid; place-items: center;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #eef6ff, #e6f2ff);
+      font-size: 20px;
+    }
 
-        .no-availability {
-            color: #666;
-            font-size: 28px;
-            font-weight: 400;
-        }
+    .label {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .label__title {
+      font-weight: 700;
+      color: #1969c9;
+      font-size: 16px;
+      letter-spacing: .1px;
+    }
+    .label__time {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.3;
+    }
+    .label__none { color: #9aa3af; }
 
-        .book-button {
-            background: #2196F3;
-            color: white;
-            border: none;
-            padding: 16px 32px;
-            font-size: 18px;
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-top: 20px;
-            width: 100%;
-        }
+    .chev {
+      width: 28px; height: 28px;
+      border-radius: 8px;
+      display: grid; place-items: center;
+      background: linear-gradient(135deg, #2b98ff, #60b7ff);
+      box-shadow: 0 6px 16px rgba(27, 128, 229, .35);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .chev svg { fill: #fff; width: 14px; height: 14px; transform: rotate(0deg); transition: transform .25s ease; }
+    .item.open .chev svg { transform: rotate(180deg); }
 
-        .book-button:hover {
-            background: #1976D2;
-        }
+    /* Hidden detail (optional) */
+    .item__detail {
+      grid-column: 1 / -1;
+      padding: 8px 6px 2px 54px;
+      display: none;
+      color: #425466;
+      font-size: 14px;
+    }
+    .item.open + .item__detail { display: block; }
 
-        .book-button:active {
-            transform: translateY(1px);
-        }
+    /* CTA button */
+    .cta {
+      display: inline-block;
+      margin: 22px auto 6px;
+      padding: 14px 32px;
+      font-weight: 800;
+      font-size: 18px;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #0ea5ff, #1d7edc, #0ea5ff);
+      box-shadow: 0 10px 28px rgba(30, 160, 255, .35);
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .cta:hover { transform: translateY(-1.5px); box-shadow: 0 14px 34px rgba(30,160,255,.45); }
+    .cta:active { transform: translateY(0); }
 
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-                gap: 30px;
-            }
-            
-            .schedule-card {
-                padding: 30px 20px;
-            }
-            
-            .name-title {
-                font-size: 36px;
-                margin-bottom: 30px;
-            }
-            
-            .day, .time, .no-availability {
-                font-size: 22px;
-            }
-            
-            .schedule-item {
-                margin-bottom: 20px;
-            }
-        }
-    </style>
+    /* Section spacing for CTA */
+    .section--cta { padding-top: 6px; padding-bottom: 34px; text-align: center; }
+
+    /* Small tweaks */
+    @media (max-width: 480px) {
+      .card__title { font-size: 34px; }
+      .card__subtitle { font-size: 20px; }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Yehia's Schedule -->
-        <div class="schedule-card">
-            <div class="schedule-content">
-                <h1 class="name-title">
-                    <span class="name-blue">Yehia's</span> Hours
-                </h1>
-                
-                <div class="schedule-item">
-                    <span class="day">Monday:</span> <span class="time">12:00pm - 5:30pm</span>
-                </div>
-                
-                <div class="schedule-item">
-                    <span class="day">Tuesday:</span> <span class="time">12:00pm - 5:30pm</span>
-                </div>
-                
-                <div class="schedule-item">
-                    <span class="day">Wednesday:</span> <span class="time">12:00pm - 5:30pm</span>
-                </div>
-                
-                <div class="schedule-item">
-                    <span class="day">Thursday:</span> <span class="time">10:00am - 8:00pm</span>
-                </div>
-                
-                <div class="schedule-item">
-                    <span class="day">Friday:</span> <span class="time">10:00am - 8:00pm</span>
-                </div>
+  <div class="wrap">
+
+    <!-- Yehia -->
+    <article class="card">
+      <header class="card__header">
+        <h2 class="card__title">Yehia</h2>
+        <div class="card__subtitle">This Week’s Availability</div>
+        <div class="card__subnote">Times shown in your local timezone</div>
+      </header>
+
+      <section class="section">
+        <h3 class="section__title">What’s Included:</h3>
+        <div class="list">
+          <div class="item" onclick="toggleRow(this)">
+            <div class="icon">💻</div>
+            <div class="label">
+              <div class="label__title">Monday</div>
+              <div class="label__time">12:00pm – 5:30pm</div>
             </div>
-            
-            <button class="book-button" onclick="bookWithYehia()">
-                Book with Yehia
-            </button>
-        </div>
-        
-        <!-- Jared's Schedule -->
-        <div class="schedule-card">
-            <div class="schedule-content">
-                <h1 class="name-title">
-                    <span class="name-blue">Jared's</span> Hours
-                </h1>
-                
-                <div class="schedule-item">
-                    <span class="day">Monday:</span> <span class="time">5:00pm - 8:00pm</span>
-                </div>
-                
-                <div class="schedule-item">
-                    <span class="day">Tuesday:</span> <span class="time">6:00pm - 8:00pm</span>
-                </div>
-                
-                <div class="schedule-item">
-                    <span class="day">Wednesday:</span> <span class="time">5:00pm - 8:00pm</span>
-                </div>
-                
-                <div class="schedule-item">
-                    <span class="day">Thursday:</span> <span class="no-availability">No availability</span>
-                </div>
-                
-                <div class="schedule-item">
-                    <span class="day">Friday:</span> <span class="time">5:00pm - 8:00pm</span>
-                </div>
+            <div class="chev" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
             </div>
-            
-            <button class="book-button" onclick="bookWithJared()">
-                Book with Jared
-            </button>
+          </div>
+          <div class="item__detail">Typical focus: chapter walkthroughs, exam planning.</div>
+
+          <div class="item" onclick="toggleRow(this)">
+            <div class="icon">🗂️</div>
+            <div class="label">
+              <div class="label__title">Tuesday</div>
+              <div class="label__time">12:00pm – 5:30pm</div>
+            </div>
+            <div class="chev"><svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></div>
+          </div>
+          <div class="item__detail">Homework help & quiz prep.</div>
+
+          <div class="item" onclick="toggleRow(this)">
+            <div class="icon">🧠</div>
+            <div class="label">
+              <div class="label__title">Wednesday</div>
+              <div class="label__time">12:00pm – 5:30pm</div>
+            </div>
+            <div class="chev"><svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></div>
+          </div>
+          <div class="item__detail">Deep dives & concept reviews.</div>
+
+          <div class="item" onclick="toggleRow(this)">
+            <div class="icon">📘</div>
+            <div class="label">
+              <div class="label__title">Thursday</div>
+              <div class="label__time">10:00am – 8:00pm</div>
+            </div>
+            <div class="chev"><svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></div>
+          </div>
+          <div class="item__detail">Longer blocks available.</div>
+
+          <div class="item" onclick="toggleRow(this)">
+            <div class="icon">🗓️</div>
+            <div class="label">
+              <div class="label__title">Friday</div>
+              <div class="label__time">10:00am – 8:00pm</div>
+            </div>
+            <div class="chev"><svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></div>
+          </div>
+          <div class="item__detail">Exam review sprints & mock problems.</div>
         </div>
-    </div>
+      </section>
 
-    <script>
-        function bookWithYehia() {
-            // Option 1: Open in new window/tab (recommended for iframe)
-            window.open('https://your-booking-system.com/yehia', '_blank');
-            
-            // Option 2: Try to redirect parent window if in iframe
-            // if (window.parent !== window) {
-            //     window.parent.location.href = 'https://your-booking-system.com/yehia';
-            // } else {
-            //     window.location.href = 'https://your-booking-system.com/yehia';
-            // }
+      <section class="section section--cta">
+        <a class="cta" href="https://your-booking-system.com/yehia" onclick="event.stopPropagation()">Book with Yehia</a>
+      </section>
+    </article>
+
+    <!-- Jared -->
+    <article class="card">
+      <header class="card__header">
+        <h2 class="card__title">Jared</h2>
+        <div class="card__subtitle">This Week’s Availability</div>
+        <div class="card__subnote">Times shown in your local timezone</div>
+      </header>
+
+      <section class="section">
+        <h3 class="section__title">What’s Included:</h3>
+        <div class="list">
+          <div class="item" onclick="toggleRow(this)">
+            <div class="icon">💻</div>
+            <div class="label">
+              <div class="label__title">Monday</div>
+              <div class="label__time">5:00pm – 8:00pm</div>
+            </div>
+            <div class="chev"><svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></div>
+          </div>
+          <div class="item__detail">Homework walkthroughs & recap.</div>
+
+          <div class="item" onclick="toggleRow(this)">
+            <div class="icon">📝</div>
+            <div class="label">
+              <div class="label__title">Tuesday</div>
+              <div class="label__time">6:00pm – 8:00pm</div>
+            </div>
+            <div class="chev"><svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></div>
+          </div>
+          <div class="item__detail">Problem sets & practice.</div>
+
+          <div class="item" onclick="toggleRow(this)">
+            <div class="icon">🧠</div>
+            <div class="label">
+              <div class="label__title">Wednesday</div>
+              <div class="label__time">5:00pm – 8:00pm</div>
+            </div>
+            <div class="chev"><svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></div>
+          </div>
+          <div class="item__detail">Concept reviews & tips.</div>
+
+          <div class="item" onclick="toggleRow(this)">
+            <div class="icon">📅</div>
+            <div class="label">
+              <div class="label__title">Thursday</div>
+              <div class="label__time label__none">No availability</div>
+            </div>
+            <div class="chev"><svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></div>
+          </div>
+          <div class="item__detail">Check back next week for openings.</div>
+
+          <div class="item" onclick="toggleRow(this)">
+            <div class="icon">🗓️</div>
+            <div class="label">
+              <div class="label__title">Friday</div>
+              <div class="label__time">5:00pm – 8:00pm</div>
+            </div>
+            <div class="chev"><svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></div>
+          </div>
+          <div class="item__detail">End-of-week review & prep.</div>
+        </div>
+      </section>
+
+      <section class="section section--cta">
+        <a class="cta" href="https://your-booking-system.com/jared" onclick="event.stopPropagation()">Book with Jared</a>
+      </section>
+    </article>
+
+  </div>
+
+  <script>
+    function toggleRow(row){
+      row.classList.toggle('open');
+      // reveal/hide the following .item__detail sibling
+      const next = row.nextElementSibling;
+      if (next && next.classList.contains('item__detail')) {
+        // trigger iframe resize if embedded
+        requestIframeResize();
+      }
+    }
+
+    // --- iframe auto-resize helper (works in Jotform and most hosts) ---
+    (function(){
+      let timer;
+      function postSize(){
+        const h = Math.max(
+          document.documentElement.scrollHeight,
+          document.body ? document.body.scrollHeight : 0
+        );
+        const w = Math.max(
+          document.documentElement.scrollWidth,
+          document.body ? document.body.scrollWidth : 0
+        );
+        if (window.parent && window.parent !== window) {
+          try {
+            window.parent.postMessage({ type: 'embed-size', height: h, width: w, source: 'tutor-schedule' }, '*');
+          } catch(e){}
         }
-
-        function bookWithJared() {
-            // Option 1: Open in new window/tab (recommended for iframe)
-            window.open('https://your-booking-system.com/jared', '_blank');
-            
-            // Option 2: Try to redirect parent window if in iframe
-            // if (window.parent !== window) {
-            //     window.parent.location.href = 'https://your-booking-system.com/jared';
-            // } else {
-            //     window.location.href = 'https://your-booking-system.com/jared';
-            // }
-        }
-
-        // Automatically adjust height for parent iframe (optional)
-        function notifyParentOfHeight() {
-            if (window.parent !== window) {
-                const height = document.body.scrollHeight;
-                window.parent.postMessage({ type: 'resize', height: height }, '*');
-            }
-        }
-
-        // Call on load and resize
-        window.addEventListener('load', notifyParentOfHeight);
-        window.addEventListener('resize', notifyParentOfHeight);
-    </script>
+      }
+      window.requestIframeResize = function(){
+        clearTimeout(timer);
+        timer = setTimeout(postSize, 120);
+      };
+      if ('ResizeObserver' in window) {
+        const ro = new ResizeObserver(() => window.requestIframeResize());
+        ro.observe(document.body);
+      }
+      window.addEventListener('load', window.requestIframeResize);
+      window.addEventListener('resize', window.requestIframeResize);
+      setInterval(window.requestIframeResize, 1000);
+    })();
+  </script>
 </body>
 </html>
