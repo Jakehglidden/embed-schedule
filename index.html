@@ -118,28 +118,32 @@
       flex-shrink: 0;
     }
 
-    /* Day + time on the SAME line */
-    .labelRow {
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
-      min-width: 0; /* allow wrapping if super narrow */
-      flex-wrap: wrap;
-    }
-    .label__day {
-      font-weight: 800;
-      color: #1969c9;
-      font-size: 16px;
-      letter-spacing: .1px;
-    }
-    .label__sep {
-      color: #a3b1c2;
-    }
-    .label__time {
-      font-size: 15px;
-      color: var(--muted);
-    }
-    .label__none { color: #9aa3af; }
+   /* Day + time on the SAME line */
+.labelRow {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+.label__day {
+  font-weight: 800;
+  color: #1969c9;   /* keep day blue */
+  font-size: 16px;
+  letter-spacing: .1px;
+}
+.label__sep { color: #a3b1c2; }
+
+/* UPDATED: make times bold, 16px, black */
+.label__time {
+  font-size: 16px;   /* match day size */
+  font-weight: 800;  /* bold */
+  color: #000;       /* keep black */
+}
+
+/* you can keep this as-is for the 'No availability' row */
+.label__none { color: #9aa3af; }
+
 
     /* CTA button */
     .cta {
