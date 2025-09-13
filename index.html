@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule - Book Your Appointment</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        .schedule-card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            flex: 1;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .schedule-content {
+            flex: 1;
+        }
+
+        .name-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        .name-blue {
+            color: #2196F3;
+        }
+
+        .schedule-item {
+            margin-bottom: 25px;
+        }
+
+        .day {
+            color: #2196F3;
+            font-size: 28px;
+            font-weight: 600;
+            display: inline;
+        }
+
+        .time {
+            color: #333;
+            font-size: 28px;
+            font-weight: 400;
+            display: inline;
+        }
+
+        .no-availability {
+            color: #666;
+            font-size: 28px;
+            font-weight: 400;
+        }
+
+        .book-button {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .book-button:hover {
+            background: #1976D2;
+        }
+
+        .book-button:active {
+            transform: translateY(1px);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .schedule-card {
+                padding: 30px 20px;
+            }
+            
+            .name-title {
+                font-size: 36px;
+                margin-bottom: 30px;
+            }
+            
+            .day, .time, .no-availability {
+                font-size: 22px;
+            }
+            
+            .schedule-item {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Yehia's Schedule -->
+        <div class="schedule-card">
+            <div class="schedule-content">
+                <h1 class="name-title">
+                    <span class="name-blue">Yehia's</span> Hours
+                </h1>
+                
+                <div class="schedule-item">
+                    <span class="day">Monday:</span> <span class="time">12:00pm - 5:30pm</span>
+                </div>
+                
+                <div class="schedule-item">
+                    <span class="day">Tuesday:</span> <span class="time">12:00pm - 5:30pm</span>
+                </div>
+                
+                <div class="schedule-item">
+                    <span class="day">Wednesday:</span> <span class="time">12:00pm - 5:30pm</span>
+                </div>
+                
+                <div class="schedule-item">
+                    <span class="day">Thursday:</span> <span class="time">10:00am - 8:00pm</span>
+                </div>
+                
+                <div class="schedule-item">
+                    <span class="day">Friday:</span> <span class="time">10:00am - 8:00pm</span>
+                </div>
+            </div>
+            
+            <button class="book-button" onclick="bookWithYehia()">
+                Book with Yehia
+            </button>
+        </div>
+        
+        <!-- Jared's Schedule -->
+        <div class="schedule-card">
+            <div class="schedule-content">
+                <h1 class="name-title">
+                    <span class="name-blue">Jared's</span> Hours
+                </h1>
+                
+                <div class="schedule-item">
+                    <span class="day">Monday:</span> <span class="time">5:00pm - 8:00pm</span>
+                </div>
+                
+                <div class="schedule-item">
+                    <span class="day">Tuesday:</span> <span class="time">6:00pm - 8:00pm</span>
+                </div>
+                
+                <div class="schedule-item">
+                    <span class="day">Wednesday:</span> <span class="time">5:00pm - 8:00pm</span>
+                </div>
+                
+                <div class="schedule-item">
+                    <span class="day">Thursday:</span> <span class="no-availability">No availability</span>
+                </div>
+                
+                <div class="schedule-item">
+                    <span class="day">Friday:</span> <span class="time">5:00pm - 8:00pm</span>
+                </div>
+            </div>
+            
+            <button class="book-button" onclick="bookWithJared()">
+                Book with Jared
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function bookWithYehia() {
+            // Option 1: Open in new window/tab (recommended for iframe)
+            window.open('https://your-booking-system.com/yehia', '_blank');
+            
+            // Option 2: Try to redirect parent window if in iframe
+            // if (window.parent !== window) {
+            //     window.parent.location.href = 'https://your-booking-system.com/yehia';
+            // } else {
+            //     window.location.href = 'https://your-booking-system.com/yehia';
+            // }
+        }
+
+        function bookWithJared() {
+            // Option 1: Open in new window/tab (recommended for iframe)
+            window.open('https://your-booking-system.com/jared', '_blank');
+            
+            // Option 2: Try to redirect parent window if in iframe
+            // if (window.parent !== window) {
+            //     window.parent.location.href = 'https://your-booking-system.com/jared';
+            // } else {
+            //     window.location.href = 'https://your-booking-system.com/jared';
+            // }
+        }
+
+        // Automatically adjust height for parent iframe (optional)
+        function notifyParentOfHeight() {
+            if (window.parent !== window) {
+                const height = document.body.scrollHeight;
+                window.parent.postMessage({ type: 'resize', height: height }, '*');
+            }
+        }
+
+        // Call on load and resize
+        window.addEventListener('load', notifyParentOfHeight);
+        window.addEventListener('resize', notifyParentOfHeight);
+    </script>
+</body>
+</html>
